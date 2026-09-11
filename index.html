@@ -3,542 +3,1164 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLASST</title>
+
+  <title>BLASST — CYBER</title>
+
+  <!-- FUENTES -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow-x: hidden;
-      color: #fff;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .container {
-      width: 100%;
+    body {
+      background: #d84fb5;
+      color: #090909;
+      font-family: "Space Grotesk", sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       TEXTURA GENERAL
+    ========================= */
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+
+      opacity: 0.14;
+
+      background-image:
+        repeating-radial-gradient(
+          circle at 0 0,
+          transparent 0,
+          rgba(0,0,0,.7) 1px,
+          transparent 2px
+        );
+
+      background-size: 5px 5px;
+      mix-blend-mode: multiply;
+    }
+
+    /* =========================
+       SCROLL SECTIONS
+    ========================= */
+
+    section {
+      position: relative;
       min-height: 100vh;
+      width: 100%;
+
+      padding: 25px;
+
+      overflow: hidden;
+    }
+
+    /* =========================
+       PEQUEÑOS TEXTOS
+    ========================= */
+
+    .micro {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .tiny {
+      font-size: 7px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       SECCIÓN 01
+    ========================= */
+
+    .hero {
+      background: #d84fb5;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      padding: 40px 20px;
-      position: relative;
     }
 
-    /* FONDO CON EFECTOS ANIMADOS */
-    .background-effects {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-    }
-
-    .blob {
+    .hero-top {
       position: absolute;
-      opacity: 0.1;
-      filter: blur(40px);
-      border-radius: 50%;
-    }
+      top: 25px;
+      left: 25px;
+      right: 25px;
 
-    .blob-1 {
-      width: 300px;
-      height: 300px;
-      background: #d84fb5;
-      top: -50px;
-      left: -50px;
-      animation: float 20s infinite ease-in-out;
-    }
-
-    .blob-2 {
-      width: 250px;
-      height: 250px;
-      background: #00d4ff;
-      bottom: 50px;
-      right: -50px;
-      animation: float 15s infinite ease-in-out reverse;
-    }
-
-    .blob-3 {
-      width: 200px;
-      height: 200px;
-      background: #ff006e;
-      bottom: 20%;
-      left: 10%;
-      animation: float 18s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translate(0, 0);
-      }
-      33% {
-        transform: translate(30px, -30px);
-      }
-      66% {
-        transform: translate(-20px, 20px);
-      }
-    }
-
-    /* CONTENEDOR DEL LOGO */
-    .logo-container {
-      position: relative;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 60px;
-      z-index: 2;
+      justify-content: space-between;
     }
 
-    .logo-glow {
+    .hero-number {
       position: absolute;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(216, 79, 181, 0.4) 0%, rgba(0, 212, 255, 0.2) 70%, transparent 100%);
-      border-radius: 50%;
-      filter: blur(80px);
-      animation: glowPulse 4s ease-in-out infinite;
-      z-index: 0;
+      top: 28%;
+      left: 18px;
+
+      font-size: 9px;
+      letter-spacing: 3px;
+
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
     }
 
-    @keyframes glowPulse {
-      0%, 100% {
-        transform: scale(0.9);
-        opacity: 0.5;
-      }
-      50% {
-        transform: scale(1.1);
-        opacity: 0.8;
-      }
-    }
+    .hero-title {
+      font-family: "Anton", sans-serif;
 
-    .logo {
-      max-width: 250px;
-      width: 100%;
-      height: auto;
-      position: relative;
-      z-index: 2;
-      filter: drop-shadow(0 20px 40px rgba(216, 79, 181, 0.3));
-      animation: logoEntry 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
+      font-size: clamp(95px, 27vw, 220px);
 
-    @keyframes logoEntry {
-      0% {
-        opacity: 0;
-        transform: scale(0) rotateY(90deg);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) rotateY(0deg);
-      }
-    }
+      line-height: .78;
+      letter-spacing: -5px;
 
-    /* TÍTULO */
-    .title {
-      font-size: clamp(24px, 8vw, 48px);
-      font-weight: 900;
       text-align: center;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #d84fb5 0%, #00d4ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: titleFade 1.2s ease-out 0.3s both;
+
+      color: #090909;
+
+      transform: rotate(-2deg);
+
+      animation: introPop 1s cubic-bezier(.16,1.2,.3,1);
     }
 
-    @keyframes titleFade {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .hero-title span {
+      display: block;
+      color: transparent;
+
+      -webkit-text-stroke: 2px #090909;
+
+      margin-left: 20px;
     }
 
-    .subtitle {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.7);
+    .hero-subtitle {
       text-align: center;
-      margin-bottom: 50px;
-      max-width: 400px;
-      animation: subtitleFade 1.2s ease-out 0.5s both;
-    }
 
-    @keyframes subtitleFade {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+      margin-top: 45px;
 
-    /* BOTONES */
-    .buttons {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-      max-width: 500px;
-      animation: buttonsEntry 1.2s ease-out 0.7s both;
-    }
-
-    @keyframes buttonsEntry {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .btn {
-      flex: 1;
-      min-width: 160px;
-      padding: 18px 30px;
-      border: 2px solid transparent;
-      border-radius: 12px;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .scroll {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 3px;
+
+      animation: bounce 1.8s infinite;
+    }
+
+    .hero-side {
+      position: absolute;
+      right: 20px;
+      top: 42%;
+
+      font-size: 8px;
+      letter-spacing: 2px;
+
+      writing-mode: vertical-rl;
+    }
+
+    /* =========================
+       SECCIÓN CYBER
+    ========================= */
+
+    .cyber {
+      background: #080808;
+      color: #d84fb5;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cyber-label {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+
+      color: #d84fb5;
+    }
+
+    .cyber-number {
+      position: absolute;
+      right: 25px;
+      top: 25px;
+
+      color: white;
+    }
+
+    /* FLYER */
+
+    .flyer {
       position: relative;
+
+      width: min(82vw, 390px);
+      height: min(115vw, 540px);
+
+      background:
+        linear-gradient(
+          135deg,
+          #d84fb5,
+          #7d2468 50%,
+          #0a0a0a
+        );
+
+      border: 2px solid #d84fb5;
+
+      box-shadow:
+        12px 12px 0 #d84fb5;
+
+      transform: rotate(-2deg);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      padding: 20px;
+
       overflow: hidden;
     }
 
-    .btn::before {
-      content: '';
+    .flyer::before {
+      content: "";
+
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      transition: left 0.3s ease;
-      z-index: -1;
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #d84fb5 0%, #ff006e 100%);
-      color: white;
-      box-shadow: 0 8px 25px rgba(216, 79, 181, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(216, 79, 181, 0.5);
-    }
-
-    .btn-primary:active {
-      transform: scale(0.95);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.5);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
-    }
-
-    .btn-secondary:active {
-      transform: scale(0.95);
-    }
-
-    /* OVERLAY */
-    .overlay {
-      position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(5px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      padding: 20px;
-      animation: overlayIn 0.3s ease;
+
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,.05) 0px,
+          rgba(255,255,255,.05) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+
+      pointer-events: none;
     }
 
-    .overlay.active {
+    .flyer-top {
       display: flex;
+      justify-content: space-between;
+
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 2px;
     }
 
-    @keyframes overlayIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+    .flyer-main {
+      position: relative;
+      z-index: 2;
+
+      font-family: "Anton", sans-serif;
+
+      font-size: clamp(65px, 19vw, 115px);
+
+      line-height: .8;
+
+      color: #090909;
+
+      text-transform: uppercase;
+
+      letter-spacing: -2px;
     }
 
-    /* POPUP */
-    .popup {
-      background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(15, 52, 96, 0.95) 100%);
-      border: 1px solid rgba(216, 79, 181, 0.3);
-      border-radius: 24px;
-      padding: 50px 35px;
-      max-width: 450px;
-      width: 100%;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-      animation: popupIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    .flyer-main span {
+      color: white;
+      display: block;
+
+      margin-left: 25px;
     }
 
-    @keyframes popupIn {
-      from {
-        opacity: 0;
-        transform: scale(0.8) translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
+    .flyer-middle {
+      font-size: 9px;
+      line-height: 1.6;
+
+      max-width: 180px;
+
+      color: white;
     }
 
-    .popup h2 {
+    .flyer-bottom {
+      display: flex;
+      justify-content: space-between;
+
+      align-items: end;
+
+      color: white;
+    }
+
+    .flyer-date {
+      font-family: "Anton", sans-serif;
       font-size: 32px;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #d84fb5 0%, #00d4ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      line-height: .9;
     }
 
-    .popup p {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 1.8;
+    /* =========================
+       INFORMACIÓN
+    ========================= */
+
+    .info {
+      background: #d84fb5;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .info-title {
+      font-family: "Anton", sans-serif;
+
+      font-size: clamp(70px, 21vw, 150px);
+
+      line-height: .78;
+
+      text-transform: uppercase;
+
+      margin-bottom: 45px;
+    }
+
+    .info-title span {
+      color: white;
+
+      -webkit-text-stroke: 2px #090909;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      border-top: 2px solid #090909;
+    }
+
+    .info-box {
+      padding: 20px 10px;
+
+      border-bottom: 2px solid #090909;
+    }
+
+    .info-box:nth-child(odd) {
+      border-right: 2px solid #090909;
+    }
+
+    .info-big {
+      font-family: "Anton", sans-serif;
+
+      font-size: 31px;
+      line-height: .9;
+
+      margin-top: 8px;
+    }
+
+    .info-small {
+      font-size: 8px;
+      line-height: 1.5;
+
+      margin-top: 10px;
+    }
+
+    /* =========================
+       FRASES
+    ========================= */
+
+    .words {
+      background: #080808;
+      color: white;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      gap: 5px;
+    }
+
+    .word {
+      font-family: "Anton", sans-serif;
+
+      font-size: clamp(60px, 19vw, 145px);
+
+      line-height: .8;
+
+      letter-spacing: -2px;
+
+      white-space: nowrap;
+    }
+
+    .word:nth-child(1) {
+      color: #d84fb5;
+      transform: translateX(-25px) rotate(-2deg);
+    }
+
+    .word:nth-child(2) {
+      color: white;
+      transform: translateX(35px);
+    }
+
+    .word:nth-child(3) {
+      color: transparent;
+
+      -webkit-text-stroke: 2px #d84fb5;
+
+      transform: translateX(-10px) rotate(2deg);
+    }
+
+    .word-small {
+      position: absolute;
+
+      top: 30px;
+      right: 25px;
+
+      font-size: 8px;
+      letter-spacing: 2px;
+
+      color: #d84fb5;
+    }
+
+    /* =========================
+       LOCATION
+    ========================= */
+
+    .location {
+      background: #d84fb5;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      padding-top: 70px;
+    }
+
+    .location-question {
+      font-family: "Anton", sans-serif;
+
+      font-size: clamp(70px, 20vw, 150px);
+
+      line-height: .8;
+
       margin-bottom: 30px;
     }
 
-    .maps-link {
-      display: block;
-      background: linear-gradient(135deg, #d84fb5 0%, #ff006e 100%);
-      color: white;
-      text-decoration: none;
-      padding: 15px 30px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(216, 79, 181, 0.3);
-    }
+    .location-photo {
+      position: relative;
 
-    .maps-link:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(216, 79, 181, 0.5);
-    }
-
-    .close-btn {
       width: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      color: white;
-      padding: 15px 30px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
+      height: 42vh;
+
+      min-height: 270px;
+
+      background:
+        linear-gradient(
+          rgba(216,79,181,.38),
+          rgba(216,79,181,.38)
+        ),
+        repeating-linear-gradient(
+          45deg,
+          #444 0px,
+          #444 2px,
+          #333 2px,
+          #333 7px
+        );
+
+      border: 2px solid #090909;
+
+      overflow: hidden;
     }
 
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.4);
+    .location-photo::after {
+      content: "SATELLITE / BAÑOS DE AGUA SANTA";
+
+      position: absolute;
+
+      top: 12px;
+      left: 12px;
+
+      background: #090909;
+      color: #d84fb5;
+
+      padding: 7px;
+
+      font-size: 7px;
+      letter-spacing: 2px;
     }
 
-    /* PÁGINA PRÓXIMAMENTE */
-    .coming-soon-page {
-      position: fixed;
+    .map-grid {
+      position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      display: none;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent 49%,
+          rgba(255,255,255,.25) 50%,
+          transparent 51%
+        ),
+        linear-gradient(
+          transparent 49%,
+          rgba(255,255,255,.25) 50%,
+          transparent 51%
+        );
+
+      background-size: 55px 55px;
+
+      opacity: .7;
+    }
+
+    .location-name {
+      margin-top: 20px;
+
+      display: flex;
+      justify-content: space-between;
+
+      align-items: end;
+    }
+
+    .location-name h2 {
+      font-family: "Anton", sans-serif;
+
+      font-size: clamp(42px, 12vw, 90px);
+
+      line-height: .8;
+    }
+
+    .maps-button {
+      text-decoration: none;
+
+      background: #090909;
+      color: #d84fb5;
+
+      padding: 15px 18px;
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: 1px;
+
+      border: 1px solid #090909;
+    }
+
+    /* =========================
+       FINAL / MERCH
+    ========================= */
+
+    .final {
+      background: #090909;
+      color: white;
+
+      display: flex;
       flex-direction: column;
+      justify-content: space-between;
+
+      padding-top: 35px;
+      padding-bottom: 35px;
+    }
+
+    .final-top {
+      display: flex;
+      justify-content: space-between;
+
+      color: #d84fb5;
+    }
+
+    .final-title {
+      font-family: "Anton", sans-serif;
+
+      font-size: clamp(90px, 28vw, 210px);
+
+      line-height: .72;
+
+      text-transform: uppercase;
+    }
+
+    .final-title span {
+      display: block;
+
+      color: #d84fb5;
+
+      margin-left: 25px;
+    }
+
+    .merch-button {
+      width: 100%;
+
+      padding: 20px;
+
+      background: #d84fb5;
+      color: #090909;
+
+      border: none;
+
+      font-family: "Anton", sans-serif;
+
+      font-size: 25px;
+
+      letter-spacing: 1px;
+
+      cursor: pointer;
+    }
+
+    .final-bottom {
+      display: flex;
+      justify-content: space-between;
+
+      font-size: 7px;
+      letter-spacing: 2px;
+
+      color: #aaa;
+    }
+
+    /* =========================
+       POPUP MERCH
+    ========================= */
+
+    .popup {
+      position: fixed;
+
+      inset: 0;
+
+      background: rgba(216,79,181,.96);
+
+      z-index: 200;
+
+      display: flex;
+
       justify-content: center;
       align-items: center;
-      z-index: 110;
+
       padding: 30px;
-      animation: pageIn 0.5s ease;
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition: .3s ease;
     }
 
-    .coming-soon-page.active {
-      display: flex;
+    .popup.active {
+      opacity: 1;
+      visibility: visible;
     }
 
-    @keyframes pageIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    .coming-soon-page h1 {
-      font-size: clamp(48px, 15vw, 120px);
-      font-weight: 900;
+    .popup-content {
       text-align: center;
-      margin-bottom: 40px;
-      background: linear-gradient(135deg, #d84fb5 0%, #ff006e 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: comingSoonTitle 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-      text-shadow: 0 10px 40px rgba(216, 79, 181, 0.2);
     }
 
-    @keyframes comingSoonTitle {
-      from {
+    .popup-title {
+      font-family: "Anton", sans-serif;
+
+      font-size: clamp(75px, 23vw, 170px);
+
+      line-height: .75;
+
+      color: #090909;
+    }
+
+    .popup-close {
+      margin-top: 35px;
+
+      padding: 15px 35px;
+
+      border: 2px solid #090909;
+
+      background: transparent;
+
+      color: #090909;
+
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+    /* =========================
+       ANIMACIONES
+    ========================= */
+
+    @keyframes introPop {
+
+      0% {
         opacity: 0;
-        transform: scale(0.5);
+        transform: scale(.4) rotate(-8deg);
       }
-      to {
+
+      70% {
+        transform: scale(1.08) rotate(2deg);
+      }
+
+      100% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1) rotate(-2deg);
       }
+
     }
 
-    .coming-soon-page .btn {
-      margin-top: 30px;
+    @keyframes bounce {
+
+      0%,100% {
+        transform: translate(-50%,0);
+      }
+
+      50% {
+        transform: translate(-50%,8px);
+      }
+
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 640px) {
-      .buttons {
-        flex-direction: column;
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (min-width: 700px) {
+
+      section {
+        padding-left: 7vw;
+        padding-right: 7vw;
       }
 
-      .btn {
-        width: 100%;
-        min-width: auto;
+      .flyer {
+        width: 420px;
+        height: 600px;
       }
 
-      .popup {
-        padding: 35px 25px;
+      .info-grid {
+        max-width: 900px;
       }
 
-      .title {
-        margin-bottom: 15px;
+      .location-photo {
+        height: 450px;
       }
+
     }
+
   </style>
 </head>
 
+
 <body>
-  <!-- EFECTOS DE FONDO -->
-  <div class="background-effects">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-  </div>
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <main class="container">
-    <!-- LOGO CON BRILLO -->
-    <div class="logo-container">
-      <div class="logo-glow"></div>
-      <img src="blasst-logo.png" alt="BLASST Logo" class="logo">
+
+  <!-- =========================
+       01 — INTRO
+  ========================= -->
+
+  <section class="hero">
+
+    <div class="hero-top">
+
+      <div class="micro">
+        BAÑOS DE AGUA SANTA
+      </div>
+
+      <div class="micro">
+        ECUADOR · 2026
+      </div>
+
     </div>
 
-    <!-- TÍTULO Y SUBTÍTULO -->
-    <h1 class="title">BLASST</h1>
-    <p class="subtitle">Explora nuestro mundo. Únete a la comunidad.</p>
-
-    <!-- BOTONES -->
-    <div class="buttons">
-      <button class="btn btn-primary" onclick="openLocation()">📍 Ubicación</button>
-      <button class="btn btn-secondary" onclick="openMerch()">🛍️ Merch</button>
+    <div class="hero-number">
+      01 / BLASST
     </div>
-  </main>
 
-  <!-- POPUP UBICACIÓN -->
-  <div class="overlay" id="locationPopup">
-    <div class="popup">
-      <h2>📍 UBICACIÓN</h2>
-      <p>
-        Baños de Agua Santa<br>
-        Ecuador
-      </p>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Baños+de+Agua+Santa,+Ecuador" target="_blank">
-        ABRIR EN MAPS
+    <div class="hero-title">
+      BLASST
+      <span>CYBER</span>
+    </div>
+
+    <div class="hero-subtitle">
+      UNA NOCHE QUE NO TE PUEDES PERDER
+    </div>
+
+    <div class="hero-side">
+      FULL PARTY · ALL NIGHT
+    </div>
+
+    <div class="scroll">
+      SCROLL ↓
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       02 — FLYER
+  ========================= -->
+
+  <section class="cyber">
+
+    <div class="cyber-label micro">
+      BLASST / 002
+    </div>
+
+    <div class="cyber-number micro">
+      CYBER EDITION
+    </div>
+
+
+    <div class="flyer">
+
+      <div class="flyer-top">
+
+        <span>
+          BLASST
+        </span>
+
+        <span>
+          FULL PARTY
+        </span>
+
+      </div>
+
+
+      <div class="flyer-main">
+
+        CYBER
+
+        <span>
+          NIGHT
+        </span>
+
+      </div>
+
+
+      <div class="flyer-middle">
+
+        UNA NOCHE DIFERENTE.
+
+        <br><br>
+
+        MUSIC · LIGHTS · ENERGY
+
+        <br>
+
+        TODO LISTO.
+
+        <br><br>
+
+        TICKETS ON SALE SOON
+
+      </div>
+
+
+      <div class="flyer-bottom">
+
+        <div>
+          BAÑOS<br>
+          ECUADOR
+        </div>
+
+        <div class="flyer-date">
+          2026
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       03 — INFO
+  ========================= -->
+
+  <section class="info">
+
+    <div class="micro">
+      THE DETAILS / LOS DETALLES
+    </div>
+
+
+    <div class="info-title">
+
+      FULL
+
+      <span>
+        PARTY
+      </span>
+
+    </div>
+
+
+    <div class="info-grid">
+
+
+      <div class="info-box">
+
+        <div class="micro">
+          WHERE?
+        </div>
+
+        <div class="info-big">
+          BAÑOS
+        </div>
+
+        <div class="info-small">
+          DE AGUA SANTA<br>
+          ECUADOR
+        </div>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <div class="micro">
+          WHEN?
+        </div>
+
+        <div class="info-big">
+          SOON
+        </div>
+
+        <div class="info-small">
+          FECHA PRÓXIMAMENTE
+        </div>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <div class="micro">
+          TICKETS
+        </div>
+
+        <div class="info-big">
+          ON SALE
+        </div>
+
+        <div class="info-small">
+          ENTRADAS PRÓXIMAMENTE
+        </div>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <div class="micro">
+          NIGHT
+        </div>
+
+        <div class="info-big">
+          ALL
+        </div>
+
+        <div class="info-small">
+          ALL NIGHT<br>
+          SIN PARAR
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       04 — FRASES
+  ========================= -->
+
+  <section class="words">
+
+    <div class="word-small">
+      NO SLEEP · JUST BLASST
+    </div>
+
+    <div class="word">
+      MUSIC
+    </div>
+
+    <div class="word">
+      ENERGY
+    </div>
+
+    <div class="word">
+      PARTY
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       05 — LOCATION
+  ========================= -->
+
+  <section class="location">
+
+    <div class="micro">
+      LOCATION / UBICACIÓN
+    </div>
+
+
+    <div class="location-question">
+      WHERE?
+    </div>
+
+
+    <div class="location-photo">
+
+      <div class="map-grid"></div>
+
+    </div>
+
+
+    <div class="location-name">
+
+      <h2>
+        BAÑOS<br>
+        DE AGUA<br>
+        SANTA
+      </h2>
+
+
+      <a
+        class="maps-button"
+        href="https://www.google.com/maps/@?api=1&map_action=map&center=-1.39699,-78.42435&zoom=14&basemap=satellite"
+        target="_blank"
+      >
+        OPEN MAP ↗
       </a>
-      <button class="close-btn" onclick="closePopups()">CERRAR</button>
+
     </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       06 — FINAL / MERCH
+  ========================= -->
+
+  <section class="final">
+
+    <div class="final-top">
+
+      <span class="micro">
+        BLASST
+      </span>
+
+      <span class="micro">
+        06 / 06
+      </span>
+
+    </div>
+
+
+    <div class="final-title">
+
+      SEE
+
+      <span>
+        YOU
+      </span>
+
+      THERE.
+
+    </div>
+
+
+    <button
+      class="merch-button"
+      onclick="openMerch()"
+    >
+      MERCH / PRÓXIMAMENTE
+    </button>
+
+
+    <div class="final-bottom">
+
+      <span>
+        BLASST CYBER
+      </span>
+
+      <span>
+        BAÑOS DE AGUA SANTA
+      </span>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       POPUP MERCH
+  ========================= -->
+
+  <div
+    class="popup"
+    id="merchPopup"
+  >
+
+    <div class="popup-content">
+
+      <div class="popup-title">
+        PRÓXIMAMENTE
+      </div>
+
+      <button
+        class="popup-close"
+        onclick="closeMerch()"
+      >
+        CERRAR
+      </button>
+
+    </div>
+
   </div>
 
-  <!-- PÁGINA PRÓXIMAMENTE -->
-  <div class="coming-soon-page" id="comingSoonPage">
-    <h1>PRÓXIMAMENTE</h1>
-    <button class="btn btn-primary" onclick="closeComingSoon()">VOLVER</button>
-  </div>
+
 
   <script>
-    function openLocation() {
-      document.getElementById("locationPopup").classList.add("active");
-    }
 
     function openMerch() {
-      document.getElementById("comingSoonPage").classList.add("active");
+
+      document
+        .getElementById("merchPopup")
+        .classList.add("active");
+
     }
 
-    function closePopups() {
-      document.getElementById("locationPopup").classList.remove("active");
+
+    function closeMerch() {
+
+      document
+        .getElementById("merchPopup")
+        .classList.remove("active");
+
     }
 
-    function closeComingSoon() {
-      document.getElementById("comingSoonPage").classList.remove("active");
-    }
-
-    // Cerrar popup al hacer clic fuera
-    document.getElementById("locationPopup").addEventListener("click", function(event) {
-      if (event.target === this) {
-        closePopups();
-      }
-    });
-
-    document.getElementById("comingSoonPage").addEventListener("click", function(event) {
-      if (event.target === this) {
-        closeComingSoon();
-      }
-    });
   </script>
+
+
 </body>
 </html>
