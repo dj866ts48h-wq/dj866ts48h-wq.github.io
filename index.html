@@ -22,7 +22,7 @@
       overflow: hidden;
     }
 
-    .page {
+    .container {
       width: 100%;
       min-height: 100vh;
       display: flex;
@@ -30,47 +30,132 @@
       justify-content: center;
       align-items: center;
       padding: 30px;
-      position: relative;
     }
 
-    /* Brillo suave del fondo */
-    .glow {
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 50%;
-      filter: blur(70px);
-      animation: glow 4s ease-in-out infinite alternate;
-    }
+    /* LOGO */
 
-    @keyframes glow {
-      from {
-        transform: scale(0.9);
-        opacity: 0.5;
-      }
-      to {
-        transform: scale(1.2);
-        opacity: 0.9;
-      }
-    }
-
-    /* Logo */
     .logo {
-      position: relative;
-      z-index: 2;
       color: white;
-      font-size: clamp(65px, 20vw, 130px);
+      font-size: clamp(65px, 19vw, 150px);
       font-weight: 900;
-      letter-spacing: -6px;
-      text-shadow:
-        0 5px 0 rgba(0, 0, 0, 0.08),
-        0 10px 30px rgba(0, 0, 0, 0.15);
+      letter-spacing: -5px;
+      line-height: 1;
+      text-align: center;
 
-      opacity: 0;
-      transform: scale(0.2);
-      animation: popLogo 0.8s cubic-bezier(.17,.67,.35,1.35) 0.2s forwards;
+      text-shadow:
+        0 5px 0 rgba(0,0,0,0.08),
+        0 12px 30px rgba(0,0,0,0.15);
+
+      animation: popLogo 1s cubic-bezier(.17,.89,.32,1.49);
     }
+
+    /* BOTONES */
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 45px;
+      width: 100%;
+      max-width: 420px;
+
+      animation: appear 1s ease 0.35s both;
+    }
+
+    button {
+      flex: 1;
+      border: 2px solid white;
+      background: white;
+      color: #d84fb5;
+
+      padding: 16px 10px;
+      border-radius: 100px;
+
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:active {
+      transform: scale(0.94);
+    }
+
+    /* FONDO OSCURO DEL POPUP */
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+
+      background: rgba(0,0,0,0.45);
+
+      display: none;
+      justify-content: center;
+      align-items: center;
+
+      padding: 25px;
+      z-index: 10;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    /* POPUP */
+
+    .popup {
+      width: 100%;
+      max-width: 380px;
+
+      background: white;
+      border-radius: 28px;
+
+      padding: 35px 25px;
+
+      text-align: center;
+
+      animation: popupIn 0.35s cubic-bezier(.17,.89,.32,1.28);
+    }
+
+    .popup h2 {
+      color: #d84fb5;
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+
+    .popup p {
+      color: #333;
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .maps {
+      display: block;
+      text-decoration: none;
+
+      background: #d84fb5;
+      color: white;
+
+      padding: 15px;
+      border-radius: 100px;
+
+      font-size: 13px;
+      font-weight: 800;
+
+      margin-bottom: 10px;
+    }
+
+    .close {
+      background: #f1f1f1;
+      color: #333;
+      border: none;
+      width: 100%;
+    }
+
+    /* ANIMACIONES */
 
     @keyframes popLogo {
       0% {
@@ -79,7 +164,6 @@
       }
 
       70% {
-        opacity: 1;
         transform: scale(1.08);
       }
 
@@ -89,39 +173,10 @@
       }
     }
 
-    /* Botón */
-    .location-button {
-      position: relative;
-      z-index: 3;
-      margin-top: 55px;
-      padding: 17px 32px;
-      border: 2px solid white;
-      border-radius: 50px;
-      background: transparent;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      opacity: 0;
-      animation: buttonAppear 0.7s ease 1s forwards;
-    }
-
-    .location-button:hover {
-      background: white;
-      color: #d84fb5;
-      transform: translateY(-3px);
-    }
-
-    .location-button:active {
-      transform: scale(0.95);
-    }
-
-    @keyframes buttonAppear {
+    @keyframes appear {
       from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(20px);
       }
 
       to {
@@ -130,139 +185,120 @@
       }
     }
 
-    /* Ventana de ubicación */
-    .location-box {
-      position: fixed;
-      z-index: 10;
-      left: 50%;
-      top: 50%;
-      width: calc(100% - 40px);
-      max-width: 420px;
-      padding: 30px;
-      background: rgba(255, 255, 255, 0.96);
-      border-radius: 25px;
-      transform: translate(-50%, -50%) scale(0.7);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.35s ease;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-      text-align: center;
-    }
+    @keyframes popupIn {
+      from {
+        opacity: 0;
+        transform: scale(0.7);
+      }
 
-    .location-box.active {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      pointer-events: auto;
-    }
-
-    .location-box h2 {
-      color: #d84fb5;
-      font-size: 24px;
-      margin-bottom: 15px;
-    }
-
-    .location-box p {
-      color: #333;
-      font-size: 16px;
-      line-height: 1.5;
-      margin-bottom: 22px;
-    }
-
-    .map-button {
-      display: inline-block;
-      padding: 13px 24px;
-      border-radius: 30px;
-      background: #d84fb5;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .close-button {
-      display: block;
-      margin: 18px auto 0;
-      border: none;
-      background: none;
-      color: #777;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    /* Fondo oscuro cuando se abre la ubicación */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 5;
-      background: rgba(0, 0, 0, 0.35);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .overlay.active {
-      opacity: 1;
-      pointer-events: auto;
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <main class="page">
+  <main class="container">
 
-    <div class="glow"></div>
-
-    <!-- LOGO -->
     <div class="logo">
       BLASST
     </div>
 
-    <!-- BOTÓN -->
-    <button class="location-button" onclick="openLocation()">
-      VER UBICACIÓN
-    </button>
+    <div class="buttons">
+
+      <button onclick="openLocation()">
+        VER UBICACIÓN
+      </button>
+
+      <button onclick="openMerch()">
+        MERCH
+      </button>
+
+    </div>
 
   </main>
 
-  <!-- FONDO OSCURO -->
-  <div class="overlay" id="overlay" onclick="closeLocation()"></div>
 
-  <!-- UBICACIÓN -->
-  <div class="location-box" id="locationBox">
+  <!-- POPUP UBICACIÓN -->
 
-    <h2>📍 UBICACIÓN</h2>
+  <div class="overlay" id="locationPopup">
 
-    <!-- CAMBIA ESTE TEXTO POR LA UBICACIÓN DEL EVENTO -->
-    <p>
-      Baños de Agua Santa<br>
-      Ecuador
-    </p>
+    <div class="popup">
 
-    <!-- CAMBIA ESTE LINK POR EL LINK DE GOOGLE MAPS -->
-    <a
-      class="map-button"
-      href="https://maps.google.com/"
-      target="_blank">
-      ABRIR EN MAPS
-    </a>
+      <h2>UBICACIÓN</h2>
 
-    <button class="close-button" onclick="closeLocation()">
-      CERRAR
-    </button>
+      <p>
+        Baños de Agua Santa<br>
+        Ecuador
+      </p>
+
+      <a
+        class="maps"
+        href="https://www.google.com/maps/search/?api=1&query=Baños+de+Agua+Santa,+Ecuador"
+        target="_blank"
+      >
+        ABRIR EN MAPS
+      </a>
+
+      <button class="close" onclick="closePopups()">
+        CERRAR
+      </button>
+
+    </div>
 
   </div>
+
+
+  <!-- POPUP MERCH -->
+
+  <div class="overlay" id="merchPopup">
+
+    <div class="popup">
+
+      <h2>PRÓXIMAMENTE</h2>
+
+      <button class="close" onclick="closePopups()">
+        CERRAR
+      </button>
+
+    </div>
+
+  </div>
+
 
   <script>
 
     function openLocation() {
-      document.getElementById("locationBox").classList.add("active");
-      document.getElementById("overlay").classList.add("active");
+      document.getElementById("locationPopup").classList.add("active");
     }
 
-    function closeLocation() {
-      document.getElementById("locationBox").classList.remove("active");
-      document.getElementById("overlay").classList.remove("active");
+    function openMerch() {
+      document.getElementById("merchPopup").classList.add("active");
     }
+
+    function closePopups() {
+      document.getElementById("locationPopup").classList.remove("active");
+      document.getElementById("merchPopup").classList.remove("active");
+    }
+
+    /* Cerrar tocando fuera del cuadro */
+
+    document.querySelectorAll(".overlay").forEach(function(overlay) {
+
+      overlay.addEventListener("click", function(event) {
+
+        if (event.target === overlay) {
+          closePopups();
+        }
+
+      });
+
+    });
 
   </script>
+
+</body>
+</html>
