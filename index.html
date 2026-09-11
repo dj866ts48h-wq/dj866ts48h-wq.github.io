@@ -7,19 +7,20 @@
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
       min-height: 100vh;
-      background: #d84fb5;
-      font-family: Arial, Helvetica, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      overflow-x: hidden;
+      color: #fff;
     }
 
     .container {
@@ -29,348 +30,515 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 30px;
+      padding: 40px 20px;
       position: relative;
     }
 
-    /* CONTENEDOR DEL LOGO CON BRILLO */
+    /* FONDO CON EFECTOS ANIMADOS */
+    .background-effects {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
 
+    .blob {
+      position: absolute;
+      opacity: 0.1;
+      filter: blur(40px);
+      border-radius: 50%;
+    }
+
+    .blob-1 {
+      width: 300px;
+      height: 300px;
+      background: #d84fb5;
+      top: -50px;
+      left: -50px;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .blob-2 {
+      width: 250px;
+      height: 250px;
+      background: #00d4ff;
+      bottom: 50px;
+      right: -50px;
+      animation: float 15s infinite ease-in-out reverse;
+    }
+
+    .blob-3 {
+      width: 200px;
+      height: 200px;
+      background: #ff006e;
+      bottom: 20%;
+      left: 10%;
+      animation: float 18s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      33% {
+        transform: translate(30px, -30px);
+      }
+      66% {
+        transform: translate(-20px, 20px);
+      }
+    }
+
+    /* CONTENEDOR DEL LOGO */
     .logo-container {
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 60px;
+      z-index: 2;
     }
 
-    /* BRILLO ANIMADO DETRÁS DEL LOGO */
-
-    .glow {
+    .logo-glow {
       position: absolute;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 70%, transparent 100%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(216, 79, 181, 0.4) 0%, rgba(0, 212, 255, 0.2) 70%, transparent 100%);
       border-radius: 50%;
-      filter: blur(60px);
-      animation: glowAnimation 3s ease-in-out infinite;
+      filter: blur(80px);
+      animation: glowPulse 4s ease-in-out infinite;
       z-index: 0;
     }
 
-    @keyframes glowAnimation {
-      0% {
-        transform: scale(0.8);
+    @keyframes glowPulse {
+      0%, 100% {
+        transform: scale(0.9);
         opacity: 0.5;
       }
       50% {
-        transform: scale(1.2);
+        transform: scale(1.1);
         opacity: 0.8;
       }
-      100% {
-        transform: scale(0.8);
-        opacity: 0.5;
-      }
     }
-
-    /* LOGO CON IMAGEN */
 
     .logo {
-      max-width: 220px;
+      max-width: 250px;
       width: 100%;
       height: auto;
-      animation: popLogo 1s cubic-bezier(.17,.89,.32,1.49);
       position: relative;
       z-index: 2;
-      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.2));
+      filter: drop-shadow(0 20px 40px rgba(216, 79, 181, 0.3));
+      animation: logoEntry 1s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* BOTONES */
-
-    .buttons {
-      display: flex;
-      gap: 12px;
-      margin-top: 45px;
-      width: 100%;
-      max-width: 420px;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      animation: appear 1s ease 0.35s both;
-    }
-
-    button {
-      flex: 1;
-      min-width: 180px;
-      border: 2px solid white;
-      background: white;
-      color: #d84fb5;
-
-      padding: 16px 10px;
-      border-radius: 100px;
-
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    button:active {
-      transform: scale(0.94);
-    }
-
-    /* FONDO OSCURO DEL POPUP */
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-
-      background: rgba(0,0,0,0.45);
-
-      display: none;
-      justify-content: center;
-      align-items: center;
-
-      padding: 25px;
-      z-index: 10;
-    }
-
-    .overlay.active {
-      display: flex;
-    }
-
-    /* POPUP */
-
-    .popup {
-      width: 100%;
-      max-width: 380px;
-
-      background: white;
-      border-radius: 28px;
-
-      padding: 35px 25px;
-
-      text-align: center;
-
-      animation: popupIn 0.35s cubic-bezier(.17,.89,.32,1.28);
-    }
-
-    .popup h2 {
-      color: #d84fb5;
-      font-size: 24px;
-      font-weight: 900;
-      margin-bottom: 15px;
-    }
-
-    .popup p {
-      color: #333;
-      font-size: 15px;
-      line-height: 1.5;
-      margin-bottom: 25px;
-    }
-
-    .maps {
-      display: block;
-      text-decoration: none;
-
-      background: #d84fb5;
-      color: white;
-
-      padding: 15px;
-      border-radius: 100px;
-
-      font-size: 13px;
-      font-weight: 800;
-
-      margin-bottom: 10px;
-      transition: 0.2s ease;
-    }
-
-    .maps:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(216, 79, 181, 0.3);
-    }
-
-    .close {
-      background: #f1f1f1;
-      color: #333;
-      border: none;
-      width: 100%;
-    }
-
-    /* PÁGINA PRÓXIMAMENTE */
-
-    .proximamente-page {
-      position: fixed;
-      inset: 0;
-      background: #d84fb5;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 20;
-      padding: 30px;
-    }
-
-    .proximamente-page.active {
-      display: flex;
-    }
-
-    .proximamente-page h1 {
-      color: white;
-      font-size: clamp(48px, 15vw, 120px);
-      text-align: center;
-      margin-bottom: 40px;
-      animation: popLogo 0.8s cubic-bezier(.17,.89,.32,1.49);
-      text-shadow: 0 5px 0 rgba(0,0,0,0.08), 0 12px 30px rgba(0,0,0,0.15);
-    }
-
-    .proximamente-page button {
-      background: white;
-      color: #d84fb5;
-      margin-top: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    /* ANIMACIONES */
-
-    @keyframes popLogo {
+    @keyframes logoEntry {
       0% {
         opacity: 0;
-        transform: scale(0.2);
+        transform: scale(0) rotateY(90deg);
       }
-
-      70% {
-        transform: scale(1.08);
-      }
-
       100% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1) rotateY(0deg);
       }
     }
 
-    @keyframes appear {
+    /* TÍTULO */
+    .title {
+      font-size: clamp(24px, 8vw, 48px);
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #d84fb5 0%, #00d4ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleFade 1.2s ease-out 0.3s both;
+    }
+
+    @keyframes titleFade {
       from {
         opacity: 0;
         transform: translateY(20px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
+    .subtitle {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      margin-bottom: 50px;
+      max-width: 400px;
+      animation: subtitleFade 1.2s ease-out 0.5s both;
+    }
+
+    @keyframes subtitleFade {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* BOTONES */
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 500px;
+      animation: buttonsEntry 1.2s ease-out 0.7s both;
+    }
+
+    @keyframes buttonsEntry {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn {
+      flex: 1;
+      min-width: 160px;
+      padding: 18px 30px;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #d84fb5 0%, #ff006e 100%);
+      color: white;
+      box-shadow: 0 8px 25px rgba(216, 79, 181, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(216, 79, 181, 0.5);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.95);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.95);
+    }
+
+    /* OVERLAY */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      padding: 20px;
+      animation: overlayIn 0.3s ease;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    @keyframes overlayIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* POPUP */
+    .popup {
+      background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(15, 52, 96, 0.95) 100%);
+      border: 1px solid rgba(216, 79, 181, 0.3);
+      border-radius: 24px;
+      padding: 50px 35px;
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: popupIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
     @keyframes popupIn {
       from {
         opacity: 0;
-        transform: scale(0.7);
+        transform: scale(0.8) translateY(20px);
       }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
 
+    .popup h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #d84fb5 0%, #00d4ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .popup p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .maps-link {
+      display: block;
+      background: linear-gradient(135deg, #d84fb5 0%, #ff006e 100%);
+      color: white;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(216, 79, 181, 0.3);
+    }
+
+    .maps-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(216, 79, 181, 0.5);
+    }
+
+    .close-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* PÁGINA PRÓXIMAMENTE */
+    .coming-soon-page {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 110;
+      padding: 30px;
+      animation: pageIn 0.5s ease;
+    }
+
+    .coming-soon-page.active {
+      display: flex;
+    }
+
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .coming-soon-page h1 {
+      font-size: clamp(48px, 15vw, 120px);
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, #d84fb5 0%, #ff006e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: comingSoonTitle 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-shadow: 0 10px 40px rgba(216, 79, 181, 0.2);
+    }
+
+    @keyframes comingSoonTitle {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
       to {
         opacity: 1;
         transform: scale(1);
+      }
+    }
+
+    .coming-soon-page .btn {
+      margin-top: 30px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        min-width: auto;
+      }
+
+      .popup {
+        padding: 35px 25px;
+      }
+
+      .title {
+        margin-bottom: 15px;
       }
     }
   </style>
 </head>
 
 <body>
+  <!-- EFECTOS DE FONDO -->
+  <div class="background-effects">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
 
+  <!-- CONTENIDO PRINCIPAL -->
   <main class="container">
-
-    <!-- LOGO CON BRILLO ANIMADO -->
+    <!-- LOGO CON BRILLO -->
     <div class="logo-container">
-      <div class="glow"></div>
+      <div class="logo-glow"></div>
       <img src="blasst-logo.png" alt="BLASST Logo" class="logo">
     </div>
 
+    <!-- TÍTULO Y SUBTÍTULO -->
+    <h1 class="title">BLASST</h1>
+    <p class="subtitle">Explora nuestro mundo. Únete a la comunidad.</p>
+
+    <!-- BOTONES -->
     <div class="buttons">
-
-      <button onclick="openLocation()">
-        VER UBICACIÓN
-      </button>
-
-      <button onclick="openMerch()">
-        MERCH
-      </button>
-
+      <button class="btn btn-primary" onclick="openLocation()">📍 Ubicación</button>
+      <button class="btn btn-secondary" onclick="openMerch()">🛍️ Merch</button>
     </div>
-
   </main>
 
-
   <!-- POPUP UBICACIÓN -->
-
   <div class="overlay" id="locationPopup">
-
     <div class="popup">
-
       <h2>📍 UBICACIÓN</h2>
-
       <p>
         Baños de Agua Santa<br>
         Ecuador
       </p>
-
-      <a
-        class="maps"
-        href="https://www.google.com/maps/search/?api=1&query=Baños+de+Agua+Santa,+Ecuador"
-        target="_blank"
-      >
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Baños+de+Agua+Santa,+Ecuador" target="_blank">
         ABRIR EN MAPS
       </a>
-
-      <button class="close" onclick="closePopups()">
-        CERRAR
-      </button>
-
+      <button class="close-btn" onclick="closePopups()">CERRAR</button>
     </div>
-
   </div>
-
 
   <!-- PÁGINA PRÓXIMAMENTE -->
-
-  <div class="proximamente-page" id="proximamentePage">
+  <div class="coming-soon-page" id="comingSoonPage">
     <h1>PRÓXIMAMENTE</h1>
-    <button onclick="closeMerch()">VOLVER</button>
+    <button class="btn btn-primary" onclick="closeComingSoon()">VOLVER</button>
   </div>
 
-
   <script>
-
     function openLocation() {
       document.getElementById("locationPopup").classList.add("active");
     }
 
     function openMerch() {
-      document.getElementById("proximamentePage").classList.add("active");
+      document.getElementById("comingSoonPage").classList.add("active");
     }
 
     function closePopups() {
       document.getElementById("locationPopup").classList.remove("active");
     }
 
-    function closeMerch() {
-      document.getElementById("proximamentePage").classList.remove("active");
+    function closeComingSoon() {
+      document.getElementById("comingSoonPage").classList.remove("active");
     }
 
-    /* Cerrar tocando fuera del cuadro */
-
+    // Cerrar popup al hacer clic fuera
     document.getElementById("locationPopup").addEventListener("click", function(event) {
       if (event.target === this) {
         closePopups();
       }
     });
 
+    document.getElementById("comingSoonPage").addEventListener("click", function(event) {
+      if (event.target === this) {
+        closeComingSoon();
+      }
+    });
   </script>
-
 </body>
 </html>
