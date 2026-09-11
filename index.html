@@ -30,15 +30,57 @@
       justify-content: center;
       align-items: center;
       padding: 30px;
+      position: relative;
+    }
+
+    /* CONTENEDOR DEL LOGO CON BRILLO */
+
+    .logo-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    /* BRILLO ANIMADO DETRÁS DEL LOGO */
+
+    .glow {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 70%, transparent 100%);
+      border-radius: 50%;
+      filter: blur(60px);
+      animation: glowAnimation 3s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes glowAnimation {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
     }
 
     /* LOGO CON IMAGEN */
 
     .logo {
-      max-width: 200px;
+      max-width: 220px;
       width: 100%;
       height: auto;
       animation: popLogo 1s cubic-bezier(.17,.89,.32,1.49);
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.2));
     }
 
     /* BOTONES */
@@ -71,6 +113,11 @@
 
       cursor: pointer;
       transition: 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     button:active {
@@ -141,6 +188,12 @@
       font-weight: 800;
 
       margin-bottom: 10px;
+      transition: 0.2s ease;
+    }
+
+    .maps:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(216, 79, 181, 0.3);
     }
 
     .close {
@@ -174,12 +227,14 @@
       text-align: center;
       margin-bottom: 40px;
       animation: popLogo 0.8s cubic-bezier(.17,.89,.32,1.49);
+      text-shadow: 0 5px 0 rgba(0,0,0,0.08), 0 12px 30px rgba(0,0,0,0.15);
     }
 
     .proximamente-page button {
       background: white;
       color: #d84fb5;
       margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     /* ANIMACIONES */
@@ -230,8 +285,11 @@
 
   <main class="container">
 
-    <!-- IMAGEN PNG EN LUGAR DEL TEXTO -->
-    <img src="https://via.placeholder.com/200x200?text=Pene+G" alt="Logo" class="logo">
+    <!-- LOGO CON BRILLO ANIMADO -->
+    <div class="logo-container">
+      <div class="glow"></div>
+      <img src="blasst.png" alt="BLASST Logo" class="logo">
+    </div>
 
     <div class="buttons">
 
@@ -254,7 +312,7 @@
 
     <div class="popup">
 
-      <h2>UBICACIÓN</h2>
+      <h2>📍 UBICACIÓN</h2>
 
       <p>
         Baños de Agua Santa<br>
