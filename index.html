@@ -32,20 +32,12 @@
       padding: 30px;
     }
 
-    /* LOGO */
+    /* LOGO CON IMAGEN */
 
     .logo {
-      color: white;
-      font-size: clamp(65px, 19vw, 150px);
-      font-weight: 900;
-      letter-spacing: -5px;
-      line-height: 1;
-      text-align: center;
-
-      text-shadow:
-        0 5px 0 rgba(0,0,0,0.08),
-        0 12px 30px rgba(0,0,0,0.15);
-
+      max-width: 200px;
+      width: 100%;
+      height: auto;
       animation: popLogo 1s cubic-bezier(.17,.89,.32,1.49);
     }
 
@@ -57,12 +49,15 @@
       margin-top: 45px;
       width: 100%;
       max-width: 420px;
+      flex-wrap: wrap;
+      justify-content: center;
 
       animation: appear 1s ease 0.35s both;
     }
 
     button {
       flex: 1;
+      min-width: 180px;
       border: 2px solid white;
       background: white;
       color: #d84fb5;
@@ -155,6 +150,38 @@
       width: 100%;
     }
 
+    /* PÁGINA PRÓXIMAMENTE */
+
+    .proximamente-page {
+      position: fixed;
+      inset: 0;
+      background: #d84fb5;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+      padding: 30px;
+    }
+
+    .proximamente-page.active {
+      display: flex;
+    }
+
+    .proximamente-page h1 {
+      color: white;
+      font-size: clamp(48px, 15vw, 120px);
+      text-align: center;
+      margin-bottom: 40px;
+      animation: popLogo 0.8s cubic-bezier(.17,.89,.32,1.49);
+    }
+
+    .proximamente-page button {
+      background: white;
+      color: #d84fb5;
+      margin-top: 20px;
+    }
+
     /* ANIMACIONES */
 
     @keyframes popLogo {
@@ -203,9 +230,8 @@
 
   <main class="container">
 
-    <div class="logo">
-      BLASST
-    </div>
+    <!-- IMAGEN PNG EN LUGAR DEL TEXTO -->
+    <img src="https://via.placeholder.com/200x200?text=Pene+G" alt="Logo" class="logo">
 
     <div class="buttons">
 
@@ -252,20 +278,11 @@
   </div>
 
 
-  <!-- POPUP MERCH -->
+  <!-- PÁGINA PRÓXIMAMENTE -->
 
-  <div class="overlay" id="merchPopup">
-
-    <div class="popup">
-
-      <h2>PRÓXIMAMENTE</h2>
-
-      <button class="close" onclick="closePopups()">
-        CERRAR
-      </button>
-
-    </div>
-
+  <div class="proximamente-page" id="proximamentePage">
+    <h1>PRÓXIMAMENTE</h1>
+    <button onclick="closeMerch()">VOLVER</button>
   </div>
 
 
@@ -276,26 +293,23 @@
     }
 
     function openMerch() {
-      document.getElementById("merchPopup").classList.add("active");
+      document.getElementById("proximamentePage").classList.add("active");
     }
 
     function closePopups() {
       document.getElementById("locationPopup").classList.remove("active");
-      document.getElementById("merchPopup").classList.remove("active");
+    }
+
+    function closeMerch() {
+      document.getElementById("proximamentePage").classList.remove("active");
     }
 
     /* Cerrar tocando fuera del cuadro */
 
-    document.querySelectorAll(".overlay").forEach(function(overlay) {
-
-      overlay.addEventListener("click", function(event) {
-
-        if (event.target === overlay) {
-          closePopups();
-        }
-
-      });
-
+    document.getElementById("locationPopup").addEventListener("click", function(event) {
+      if (event.target === this) {
+        closePopups();
+      }
     });
 
   </script>
