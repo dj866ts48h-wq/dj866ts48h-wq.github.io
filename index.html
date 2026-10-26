@@ -10,7 +10,7 @@
     :root {
       --bg: #000000;
       --pink: #F700B5;
-      --white: #FFFFFF;
+      --white: #ffffff;
     }
 
     * {
@@ -29,11 +29,7 @@
     body {
       background: var(--bg);
       color: var(--white);
-      font-family: 'Horizon', sans-serif;
-    }
-
-    section:not(.cover) {
-      display: none !important;
+      font-family: 'Horizon', 'Arial Black', sans-serif;
     }
 
     .cover {
@@ -49,51 +45,54 @@
     .bg-words {
       position: absolute;
       inset: 0;
-      display: grid;
-      place-items: center;
-      padding: 7vh 7vw;
       z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3vh 4vw;
     }
 
     .word-stack {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       gap: 0.12em;
       width: 100%;
       height: 100%;
-      transform: scaleY(0.96);
+      transform: scaleX(1.24) scaleY(0.9);
+      transform-origin: center;
     }
 
     .bg-word {
       display: block;
-      color: var(--white);
-      font-family: 'Horizon', sans-serif;
-      font-size: clamp(3.2rem, 11vw, 17rem);
-      line-height: 0.7;
+      font-family: 'Horizon', 'Arial Black', sans-serif;
+      font-size: clamp(2.5rem, 10vw, 16rem);
+      line-height: 0.72;
       letter-spacing: -0.08em;
       text-transform: uppercase;
       font-weight: 900;
+      color: var(--white);
       text-align: center;
       white-space: nowrap;
       opacity: 0.98;
+      text-rendering: geometricPrecision;
     }
 
     .logo-wrap {
       position: absolute;
       inset: 0;
+      z-index: 20;
       display: grid;
       place-items: center;
-      z-index: 20;
       pointer-events: none;
     }
 
     .logo {
       position: relative;
       display: block;
-      font-family: 'Horizon', sans-serif;
-      font-size: clamp(5rem, 22vw, 24rem);
+      font-family: 'Horizon', 'Arial Black', sans-serif;
+      font-size: clamp(5.1rem, 22vw, 24rem);
       line-height: 0.8;
       letter-spacing: -0.08em;
       text-transform: uppercase;
@@ -101,23 +100,24 @@
       color: var(--white);
       text-align: center;
       white-space: nowrap;
-      transform: translateY(-0.04em);
+      transform: scaleX(1.08) translateY(-0.02em);
+      transform-origin: center;
+      text-rendering: geometricPrecision;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.12));
+      z-index: 30;
     }
 
     .graffiti {
       position: absolute;
       left: 50%;
       top: 44%;
-      width: 116vw;
-      height: 52vh;
+      width: 120vw;
+      height: 58vh;
       transform: translate(-50%, -50%) rotate(-12deg);
       z-index: 15;
       overflow: visible;
       pointer-events: none;
-    }
-
-    .graffiti .star-body {
-      filter: none;
+      filter: saturate(1.15);
     }
 
     .graffiti .star-fill {
@@ -133,30 +133,25 @@
 
     .graffiti .text-fill {
       fill: var(--white);
-      font-family: 'Horizon', sans-serif;
+      font-family: 'Horizon', 'Arial Black', sans-serif;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -0.1em;
+      letter-spacing: -0.08em;
     }
 
     @media (max-width: 540px) {
       .word-stack {
-        gap: 0.18em;
+        transform: scaleX(1.18) scaleY(0.88);
+        gap: 0.1em;
       }
 
       .bg-word {
-        font-size: clamp(2.8rem, 16vw, 8rem);
+        font-size: clamp(2.2rem, 14vw, 7rem);
       }
 
       .graffiti {
         width: 130vw;
         height: 50vh;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .cover {
-        scroll-behavior: auto;
       }
     }
   </style>
@@ -181,25 +176,25 @@
         </clipPath>
       </defs>
 
-      <g class="star-body">
+      <g>
         <path class="star-fill" d="M571 104L706 329L980 361L779 541L842 817L571 669L301 818L364 542L162 360L436 329L571 104Z"/>
 
         <g clip-path="url(#starClip)">
-          <g class="text-layer" font-size="170" textLength="0">
-            <text class="text-fill" x="276" y="385" transform="rotate(-2 276 385)">MUSIC</text>
-            <text class="text-fill" x="290" y="560" transform="rotate(-2 290 560)">DANCE</text>
-            <text class="text-fill" x="240" y="735" transform="rotate(-2 240 735)">DRINKS</text>
-            <text class="text-fill" x="510" y="265" transform="rotate(-3 510 265)">HAPPINESS</text>
-            <text class="text-fill" x="500" y="465" transform="rotate(-3 500 465)">FRIENDS</text>
+          <g class="text-layer" font-size="170">
+            <text class="text-fill" x="270" y="385" transform="rotate(-2 270 385)">MUSIC</text>
+            <text class="text-fill" x="300" y="550" transform="rotate(-2 300 550)">DANCE</text>
+            <text class="text-fill" x="240" y="720" transform="rotate(-2 240 720)">DRINKS</text>
+            <text class="text-fill" x="520" y="250" transform="rotate(-3 520 250)">HAPPINESS</text>
+            <text class="text-fill" x="500" y="450" transform="rotate(-3 500 450)">FRIENDS</text>
             <text class="text-fill" x="430" y="640" transform="rotate(-3 430 640)">KISSES</text>
           </g>
         </g>
 
-        <path class="drip" d="M507 701L508 792C503 816 487 842 468 857L458 886L447 857C417 812 409 744 432 702L507 701Z"/>
-        <path class="drip" d="M600 722L594 844C590 881 570 919 545 942L526 965L511 942C495 913 480 874 482 834L489 722L600 722Z"/>
-        <path class="drip" d="M669 712L672 804C674 847 693 882 724 907L744 928L758 907C778 878 791 837 789 794L783 710L669 712Z"/>
-        <path class="drip" d="M440 638L443 711C445 733 452 756 469 770L486 782L500 766C523 744 533 713 530 673L525 636L440 638Z"/>
-        <path class="drip" d="M316 572L296 648C286 679 294 713 316 740L332 756L346 740C361 719 369 687 365 649L350 570L316 572Z"/>
+        <path class="drip" d="M510 700L512 792C507 820 488 845 468 860L458 886L445 857C417 812 409 742 432 702L510 700Z"/>
+        <path class="drip" d="M605 722L597 847C592 884 571 918 545 942L525 965L511 942C495 911 482 873 484 835L492 722L605 722Z"/>
+        <path class="drip" d="M671 712L674 806C676 848 694 884 724 908L744 928L758 908C779 879 790 836 788 794L783 710L671 712Z"/>
+        <path class="drip" d="M440 638L443 708C445 732 451 754 468 770L486 782L500 766C523 742 533 713 530 673L525 636L440 638Z"/>
+        <path class="drip" d="M318 572L296 647C286 678 293 712 315 739L332 756L346 740C363 718 370 688 366 648L350 570L318 572Z"/>
       </g>
     </svg>
 
